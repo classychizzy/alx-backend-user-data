@@ -65,7 +65,7 @@ class BasicAuth(Auth):
         """
         if user_email is None or type(user_email) is not str:
             return None
-        if user_pwd is None or type(user_pwd) is not str:
+        if user_pwd is None or isinstance(user_pwd, str) is False:
             return None
         try:
             if User.all() is not []:
