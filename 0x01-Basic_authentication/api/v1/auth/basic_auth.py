@@ -4,6 +4,7 @@ a class that handles basic authentication
 """
 
 from api.v1.auth.auth import Auth
+from models.user import User
 from typing import Tuple, TypeVar
 
 
@@ -21,7 +22,7 @@ class BasicAuth(Auth):
         """
         if authorization_header is None:
             return None
-        if not isinstance(authorization_header, str):
+        if isinstance(authorization_header, str) is False:
             return None
         if authorization_header.split(" ")[0] != 'Basic':
             return None
