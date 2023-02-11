@@ -1,24 +1,16 @@
 #!/usr/bin/env python3
-"""
-a class that handles basic authentication
-"""
-
+"""Basic Auth"""
 from api.v1.auth.auth import Auth
-from models.user import User
 from typing import Tuple, TypeVar
+from models.user import User
 
 
 class BasicAuth(Auth):
+    """ Basic Auth
     """
-    child to the Auth class,
-    a class that implements Basic authentication
-    """
-    def extract_base64_authorization_header(
-                                            self,
-                                            authorization_header: str
-                                            ) -> str:
-        """
-        a method that encodes a string in base64
+    def extract_base64_authorization_header(self,
+                                            authorization_header: str) -> str:
+        """Get authorization header and extract the value
         """
         if authorization_header is None:
             return None
@@ -36,7 +28,7 @@ class BasicAuth(Auth):
         import base64
         if base64_authorization_header is None:
             return None
-        if type(base64_authorization_header) is not str:
+        if isinstance(base64_authorization_header, str) is False:
             return None
         try:
             return base64.b64decode(
@@ -66,7 +58,7 @@ class BasicAuth(Auth):
         """
         if user_email is None or type(user_email) is not str:
             return None
-        if user_pwd is None or isinstance(user_pwd, str) is False:
+        if user_pwd is None or type(user_pwd) is not str:
             return None
         try:
             if User.all() is not []:
@@ -94,3 +86,4 @@ class BasicAuth(Auth):
         if email is None or pwd is None:
             return None
         return self.user_object_from_credentials(email, pwd)
+
